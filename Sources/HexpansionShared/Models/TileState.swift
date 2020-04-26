@@ -5,7 +5,7 @@
 //  Created by Andrew Haentjens on 26/04/2020.
 //
 
-import UIKit
+import Foundation
 
 /* TileState JSON Object
     "state:" {
