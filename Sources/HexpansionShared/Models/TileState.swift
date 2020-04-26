@@ -38,14 +38,14 @@ public enum TileState: Codable {
 
     // MARK: - Properties
     
-    var color: UIColor {
+    var color: String {
         switch self {
 
         case .free:
-            return .darkGray
+            return "#2D2E2D"
 
         case .ineligable:
-            return .clear
+            return "#FFFFFF"
 
         case .owned(let player):
             return player.color

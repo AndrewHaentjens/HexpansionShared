@@ -5,7 +5,7 @@
 //  Created by Andrew Haentjens on 26/04/2020.
 //
 
-import UIKit
+import Foundation
 
 /* Player JSON Object
     "player": {
@@ -17,7 +17,7 @@ import UIKit
 public struct Player: Codable, Equatable, Hashable {
     let id: Int
     let name: String
-    let color: UIColor
+    let color: String
 
     enum PlayerCodingError: LocalizedError {
         case decoding(String)
@@ -43,8 +43,7 @@ public struct Player: Codable, Equatable, Hashable {
         do {
             id = try values.decode(Int.self, forKey: .id)
             name = try values.decode(String.self, forKey: .name)
-            let hex = try values.decode(String.self, forKey: .color)
-            color = UIColor(hexString: hex)
+            color = try values.decode(String.self, forKey: .color)
         } catch(let error) {
             throw PlayerCodingError.decoding("Failed to decode Player: \(error)")
         }
@@ -56,8 +55,7 @@ public struct Player: Codable, Equatable, Hashable {
         do {
             try container.encode(id, forKey: .id)
             try container.encode(name, forKey: .name)
-            let hex = color.hexString
-            try container.encode(hex, forKey: .color)
+            try container.encode(color, forKey: .color)
         } catch(let error) {
             throw PlayerCodingError.encoding("Failed to encode Player: \(error)")
         }
