@@ -34,6 +34,29 @@ public struct Tile: Codable {
     public var value: Int
 
     public var owner: Player?
+    public var neighboringLocations: [TileLocation] {
+        var neighboringLocations: [TileLocation] = []
+
+        let isEvenRow = location.row % 2 == 0
+
+        if isEvenRow {
+            neighboringLocations.append(TileLocation(row: location.row - 1, column: location.column))
+            neighboringLocations.append(TileLocation(row: location.row - 1, column: location.column + 1))
+            neighboringLocations.append(TileLocation(row: location.row, column: location.column - 1))
+            neighboringLocations.append(TileLocation(row: location.row, column: location.column + 1))
+            neighboringLocations.append(TileLocation(row: location.row + 1, column: location.column))
+            neighboringLocations.append(TileLocation(row: location.row + 1, column: location.column + 1))
+        } else {
+            neighboringLocations.append(TileLocation(row: location.row - 1, column: location.column - 1))
+            neighboringLocations.append(TileLocation(row: location.row - 1, column: location.column))
+            neighboringLocations.append(TileLocation(row: location.row, column: location.column - 1))
+            neighboringLocations.append(TileLocation(row: location.row, column: location.column + 1))
+            neighboringLocations.append(TileLocation(row: location.row + 1, column: location.column - 1))
+            neighboringLocations.append(TileLocation(row: location.row + 1, column: location.column))
+        }
+        
+        return neighboringLocations
+    }
 
     public init(id: Int, state: TileState, location: TileLocation) {
         self.id = id
@@ -51,3 +74,7 @@ public struct Tile: Codable {
         }
     }
 }
+
+// MARK: - private methods
+
+private extension Tile { }
