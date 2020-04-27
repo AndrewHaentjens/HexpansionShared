@@ -33,14 +33,14 @@ import Foundation
     }
 */
 public struct Board: Codable {
-    let id: Int
-    let name: String
-    let totalItemsInRow: Int
-    let totalItemsInColumn: Int
-    let tiles: [Tile]
+    public let id: Int
+    public let name: String
+    public let totalItemsInRow: Int
+    public let totalItemsInColumn: Int
+    public let tiles: [Tile]
 
     /// Temporary init for hardcode board
-    init(id: Int, name: String, totalItemsInRow: Int, totalItemsInColumn: Int, playerOne: Player, playerTwo: Player) {
+    private init(id: Int, name: String, totalItemsInRow: Int, totalItemsInColumn: Int, playerOne: Player, playerTwo: Player) {
         self.id = id
         self.name = name
         self.totalItemsInRow = totalItemsInRow
@@ -86,23 +86,3 @@ public struct Board: Codable {
                      playerTwo: playerTwo)
     }
 }
-
-/*
- if board.ineligableTiles.contains(i) {
-     let location = calculateLocation(item: i)
-     let inelligibleTile = Tile(id: i, state: .ineligable, location: location)
-     tiles.append(TileModelController(tile: inelligibleTile))
- } else if board.playerOneStartingPosition == i {
-     let location = calculateLocation(item: i)
-     let playerOneStartingTile = Tile(id: i, state: .owned(players[0]), location: location)
-     tiles.append(TileModelController(tile: playerOneStartingTile))
- } else if board.playerTwoStartingPosition == i {
-     let location = calculateLocation(item: i)
-     let playerTwoStartingTile = Tile(id: i, state: .owned(players[1]), location: location)
-     tiles.append(TileModelController(tile: playerTwoStartingTile))
- } else {
-     let location = calculateLocation(item: i)
-     let freeTile = Tile(id: i, state: .free, location: location)
-     tiles.append(TileModelController(tile: freeTile))
- }
- */

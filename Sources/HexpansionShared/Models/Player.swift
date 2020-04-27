@@ -15,9 +15,9 @@ import Foundation
     }
 */
 public struct Player: Codable, Equatable, Hashable {
-    let id: Int
-    let name: String
-    let color: String
+    public let id: Int
+    public let name: String
+    public let color: String
 
     enum PlayerCodingError: LocalizedError {
         case decoding(String)

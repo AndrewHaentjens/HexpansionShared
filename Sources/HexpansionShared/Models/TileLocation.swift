@@ -15,6 +15,6 @@ import Foundation
 */
 
 public struct TileLocation: Codable {
-    let row: Int
-    let column: Int
+    public let row: Int
+    public let column: Int
 }

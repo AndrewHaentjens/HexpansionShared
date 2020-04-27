@@ -38,7 +38,7 @@ public enum TileState: Codable {
 
     // MARK: - Properties
     
-    var color: String {
+    public var color: String {
         switch self {
 
         case .free:

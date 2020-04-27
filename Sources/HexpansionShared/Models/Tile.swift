@@ -28,14 +28,14 @@ import Foundation
 
 public struct Tile: Codable {
 
-    var id: Int
-    var location: TileLocation
-    var state: TileState
-    var value: Int
+    public var id: Int
+    public var location: TileLocation
+    public var state: TileState
+    public var value: Int
 
-    var owner: Player?
+    public var owner: Player?
 
-    init(id: Int, state: TileState, location: TileLocation) {
+    public init(id: Int, state: TileState, location: TileLocation) {
         self.id = id
         self.location = location
         self.state = state
