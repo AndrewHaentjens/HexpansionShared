@@ -40,7 +40,7 @@ public struct Message: Codable {
         return Message(type: .stop, board: nil)
     }
     
-    public static func turn(board: Board, player: Player) -> Message {
+    public static func turn(board: Board, player: Player?) -> Message {
         return Message(type: .turn, board: board, player: player)
     }
     
