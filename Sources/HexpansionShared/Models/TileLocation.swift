@@ -18,3 +18,12 @@ public struct TileLocation: Codable {
     public let row: Int
     public let column: Int
 }
+
+// MARK: - Equatable
+
+extension TileLocation: Equatable {
+
+    public static func == (lhs: Self, rhs: Self) -> Bool {
+        return lhs.row == rhs.row && lhs.column == rhs.column
+    }
+}

@@ -33,11 +33,16 @@ import Foundation
     }
 */
 public struct Board: Codable {
+
+    // MARK: - Properties
+
     public let id: Int
     public let name: String
     public let totalItemsInRow: Int
     public let totalItemsInColumn: Int
     public let tiles: [Tile]
+
+    // MARK: - Initializers
 
     /// Temporary init for hardcode board
     private init(id: Int, name: String, totalItemsInRow: Int, totalItemsInColumn: Int, playerOne: Player, playerTwo: Player) {
@@ -76,6 +81,8 @@ public struct Board: Codable {
 
         tiles = nTiles
     }
+
+    // MARK: - Static functions
 
     public static func getClassicArenaBoard(playerOne: Player, playerTwo: Player) -> Board {
         return Board(id: 1,

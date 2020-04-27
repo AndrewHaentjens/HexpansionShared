@@ -15,6 +15,9 @@ import Foundation
     }
 */
 public struct Player: Codable, Equatable, Hashable {
+
+    // MARK: - Properties
+
     public let id: Int
     public let name: String
     public let color: String
@@ -37,6 +40,8 @@ public struct Player: Codable, Equatable, Hashable {
         case color
     }
 
+    // MARK: - Initializers
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
 
@@ -48,6 +53,8 @@ public struct Player: Codable, Equatable, Hashable {
             throw PlayerCodingError.decoding("Failed to decode Player: \(error)")
         }
     }
+
+    // MARK: - Public methods
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)

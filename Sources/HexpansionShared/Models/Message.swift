@@ -15,15 +15,22 @@ public enum MessageType: String, Codable {
 }
 
 public struct Message: Codable {
+
+    // MARK: - Properties
+
     public let type: MessageType
     public let board: Board?
     public let player: Player?
+
+    // MARK: - Initializer
     
     private init(type: MessageType, board: Board? = nil, player: Player? = nil) {
         self.type = type
         self.board = board
         self.player = player
     }
+
+    // MARK: - Static methods
 
     public static func join(player: Player) -> Message {
         return Message(type: .join, board: nil, player: player)
