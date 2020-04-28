@@ -26,14 +26,30 @@ import Foundation
     }
 */
 
-public struct Tile: Codable {
+public class Tile: Codable {
 
-    public var id: Int
-    public var location: TileLocation
+    public let id: Int
+    public let location: TileLocation
     public var state: TileState
     public var value: Int
 
     public var owner: Player?
+
+    /*
+     Neighboring tiles for 2, 2 (row, column)
+                (1, 2)          (1, 3)
+     
+            (2, 1)      (2, 2)      (2, 3)
+     
+                (3, 2)          (3, 3)
+
+     Neighboring tiles for 3, 3 (row, column)
+                (2, 2)          (2, 3)
+     
+            (3, 2)      (3, 3)      (3, 4)
+     
+                (4, 2)          (4, 3)
+    */
     public var neighboringLocations: [TileLocation] {
         var neighboringLocations: [TileLocation] = []
 

@@ -32,7 +32,7 @@ import Foundation
         ... ]
     }
 */
-public struct Board: Codable {
+public class Board: NSObject, Codable {
 
     // MARK: - Properties
 
@@ -40,12 +40,13 @@ public struct Board: Codable {
     public let name: String
     public let totalItemsInRow: Int
     public let totalItemsInColumn: Int
-    public let tiles: [Tile]
+
+    public var tiles: [Tile]
 
     // MARK: - Initializers
 
-    /// Temporary init for hardcode board
-    private init(id: Int, name: String, totalItemsInRow: Int, totalItemsInColumn: Int, playerOne: Player, playerTwo: Player) {
+    /// Temporary init for hardcoded board
+    public init(id: Int, name: String, totalItemsInRow: Int, totalItemsInColumn: Int, playerOne: Player, playerTwo: Player) {
         self.id = id
         self.name = name
         self.totalItemsInRow = totalItemsInRow
@@ -80,16 +81,5 @@ public struct Board: Codable {
         }
 
         tiles = nTiles
-    }
-
-    // MARK: - Static functions
-
-    public static func getClassicArenaBoard(playerOne: Player, playerTwo: Player) -> Board {
-        return Board(id: 1,
-                     name: "The Classic Arena",
-                     totalItemsInRow: 10,
-                     totalItemsInColumn: 9,
-                     playerOne: playerOne,
-                     playerTwo: playerTwo)
     }
 }

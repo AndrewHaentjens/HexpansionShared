@@ -14,13 +14,13 @@ import Foundation
         "color": #5DF54C
     }
 */
-public struct Player: Codable, Equatable, Hashable {
+public class Player: Codable {
 
     // MARK: - Properties
 
     public let id: Int
-    public let name: String
-    public let color: String
+    public var name: String
+    public var color: String?
 
     enum PlayerCodingError: LocalizedError {
         case decoding(String)
@@ -42,7 +42,7 @@ public struct Player: Codable, Equatable, Hashable {
 
     // MARK: - Initializers
 
-    public init(from decoder: Decoder) throws {
+    required public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
 
         do {
@@ -66,5 +66,19 @@ public struct Player: Codable, Equatable, Hashable {
         } catch(let error) {
             throw PlayerCodingError.encoding("Failed to encode Player: \(error)")
         }
+    }
+}
+
+extension Player: Equatable {
+
+    public static func == (lhs: Player, rhs: Player) -> Bool {
+        lhs.id == rhs.id
+    }
+}
+
+extension Player: Hashable {
+
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(ObjectIdentifier(self))
     }
 }
