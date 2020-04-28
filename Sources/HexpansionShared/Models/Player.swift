@@ -18,7 +18,7 @@ public class Player: Codable {
 
     // MARK: - Properties
 
-    public let id: Int
+    public let id: String
     public var name: String
     public var color: String?
 
@@ -46,7 +46,7 @@ public class Player: Codable {
         let values = try decoder.container(keyedBy: CodingKeys.self)
 
         do {
-            id = try values.decode(Int.self, forKey: .id)
+            id = try values.decode(String.self, forKey: .id)
             name = try values.decode(String.self, forKey: .name)
             color = try values.decode(String.self, forKey: .color)
         } catch(let error) {
@@ -54,7 +54,7 @@ public class Player: Codable {
         }
     }
 
-    public init(id: Int, name: String) {
+    public init(id: String, name: String) {
         self.id = id
         self.name = name
     }
