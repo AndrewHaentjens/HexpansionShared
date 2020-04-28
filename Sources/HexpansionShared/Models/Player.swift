@@ -54,7 +54,7 @@ public class Player: Codable {
         }
     }
 
-    init(id: Int, name: String) {
+    public init(id: Int, name: String) {
         self.id = id
         self.name = name
     }
