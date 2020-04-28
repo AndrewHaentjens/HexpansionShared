@@ -54,6 +54,11 @@ public class Player: Codable {
         }
     }
 
+    init(id: Int, name: String) {
+        self.id = id
+        self.name = name
+    }
+
     // MARK: - Public methods
 
     public func encode(to encoder: Encoder) throws {
