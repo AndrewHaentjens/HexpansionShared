@@ -57,7 +57,7 @@ public class Player: Codable {
         do {
             id = try values.decode(String.self, forKey: .id)
             name = try values.decode(String.self, forKey: .name)
-            color = try values.decode(String.self, forKey: .color)
+            color = try values.decodeIfPresent(String.self, forKey: .color)
         } catch(let error) {
             throw PlayerCodingError.decoding("Failed to decode Player: \(error)")
         }
