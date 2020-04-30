@@ -7,12 +7,21 @@
 
 import Foundation
 
+
+
 /* Player JSON Object
     "player": {
         "id": 1,
         "name": "Andrew",
         "color": #5DF54C
     }
+ 
+ "player":
+ {
+     "id":"621B5454-31F2-446B-9F36-FE22903D1CE7",
+     "name":"Andrew",
+     "color":null
+ }
 */
 public class Player: Codable {
 

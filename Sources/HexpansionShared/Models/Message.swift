@@ -7,6 +7,18 @@
 
 import Foundation
 
+/*
+{
+ "type":"join",
+ "player":
+    {
+        "id":"621B5454-31F2-446B-9F36-FE22903D1CE7",
+        "name":"Andrew",
+        "color":null
+    }
+ }
+*/
+
 public enum MessageType: String, Codable {
     case join = "join"
     case turn = "turn"
@@ -33,11 +45,11 @@ public struct Message: Codable {
     // MARK: - Static methods
 
     public static func join(player: Player) -> Message {
-        return Message(type: .join, board: nil, player: player)
+        return Message(type: .join, player: player)
     }
     
     public static func stop() -> Message {
-        return Message(type: .stop, board: nil)
+        return Message(type: .stop)
     }
     
     public static func turn(board: Board, player: Player?) -> Message {
