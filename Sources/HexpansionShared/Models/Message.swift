@@ -20,10 +20,12 @@ import Foundation
 */
 
 public enum MessageType: String, Codable {
-    case join = "join"
-    case turn = "turn"
-    case finish = "finish"
-    case stop = "stop"
+    case joining = "joining" // request to join
+    case joined = "joined" // waiting for other players
+    case full = "full" // game is full
+    case turn = "turn" // set turn
+    case finish = "finish" // finish game
+    case stop = "stop" // stop game
 }
 
 public struct Message: Codable {
@@ -44,8 +46,16 @@ public struct Message: Codable {
 
     // MARK: - Static methods
 
-    public static func join(player: Player) -> Message {
-        return Message(type: .join, player: player)
+    public static func joining(player: Player) -> Message {
+        return Message(type: .joining, player: player)
+    }
+
+    public static func joined(player: Player) -> Message {
+        return Message(type: .joined, player: player)
+    }
+
+    public static func gameIsFull() -> Message {
+        return Message(type: .full)
     }
     
     public static func stop() -> Message {
