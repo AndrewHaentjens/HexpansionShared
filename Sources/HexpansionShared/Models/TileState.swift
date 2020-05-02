@@ -42,7 +42,7 @@ public enum TileState: Codable {
         switch self {
 
         case .free:
-            return "#2D2E2D"
+            return "#424242"
 
         case .ineligable:
             return "#FFFFFF"
