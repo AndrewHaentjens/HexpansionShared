@@ -56,8 +56,8 @@ public struct Message: Codable {
         return Message(type: .joined, player: player)
     }
 
-    public static func gameIsFull() -> Message {
-        return Message(type: .full)
+    public static func gameIsFull(board: Board) -> Message {
+        return Message(type: .full, board: board)
     }
     
     public static func stop() -> Message {
