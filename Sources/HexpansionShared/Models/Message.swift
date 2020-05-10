@@ -34,13 +34,15 @@ public struct Message: Codable {
 
     public let type: MessageType
     public let board: Board?
+    public let tile: Tile?
     public let player: Player?
 
     // MARK: - Initializer
     
-    private init(type: MessageType, board: Board? = nil, player: Player? = nil) {
+    private init(type: MessageType, board: Board? = nil, tile: Tile? = nil, player: Player? = nil) {
         self.type = type
         self.board = board
+        self.tile = tile
         self.player = player
     }
 
@@ -62,8 +64,8 @@ public struct Message: Codable {
         return Message(type: .stop)
     }
     
-    public static func turn(board: Board, player: Player?) -> Message {
-        return Message(type: .turn, board: board, player: player)
+    public static func turn(tile: Tile, player: Player?) -> Message {
+        return Message(type: .turn, tile: tile, player: player)
     }
     
     public static func finish(board: Board, winningPlayer: Player?) -> Message {
