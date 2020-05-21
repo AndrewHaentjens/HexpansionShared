@@ -65,6 +65,7 @@ public class Player: Codable {
             try container.encode(id, forKey: .id)
             try container.encode(name, forKey: .name)
             try container.encode(color, forKey: .color)
+            try container.encode(ranking, forKey: .ranking)
         } catch(let error) {
             throw PlayerCodingError.encoding("Failed to encode Player: \(error)")
         }
