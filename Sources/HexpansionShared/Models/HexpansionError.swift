@@ -9,13 +9,13 @@ import Foundation
 
 // MARK: - Connection
 
-enum ConnectionError: LocalizedError {
+public enum ConnectionError: LocalizedError {
     
 }
 
 // MARK: - Player
 
-enum PlayerCodingError: LocalizedError {
+public enum PlayerCodingError: LocalizedError {
     case decoding(String)
     case encoding(String)
 
@@ -27,7 +27,7 @@ enum PlayerCodingError: LocalizedError {
     }
 }
 
-enum PlayerError: LocalizedError {
+public enum PlayerError: LocalizedError {
     case nameTaken
     case gameIsFull
     
