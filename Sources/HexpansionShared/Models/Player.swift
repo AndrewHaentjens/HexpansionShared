@@ -12,36 +12,29 @@ import Foundation
 /* Player JSON Object
  
     "player": {
-        "id":"621B5454-31F2-446B-9F36-FE22903D1CE7",
-        "name":"Andrew",
-        "color":null
+        "id": "621B5454-31F2-446B-9F36-FE22903D1CE7",
+        "name": "Andrew",
+        "color": null
+        "ranking": 0
     }
 */
 public class Player: Codable {
+
+    // MARK: - CodingKeys
+    
+    private enum CodingKeys: String, CodingKey {
+        case id
+        case name
+        case color
+        case ranking
+    }
 
     // MARK: - Properties
 
     public let id: String
     public var name: String
     public var color: String?
-
-    enum PlayerCodingError: LocalizedError {
-        case decoding(String)
-        case encoding(String)
-
-        var localizedDescription: String {
-            switch self {
-            case .decoding(let errorMessage), .encoding(let errorMessage):
-                return errorMessage
-            }
-        }
-    }
-
-    private enum CodingKeys: String, CodingKey {
-        case id
-        case name
-        case color
-    }
+    public var ranking: Int // Might be used later, but no users are saved atm.
 
     // MARK: - Initializers
 
@@ -52,6 +45,7 @@ public class Player: Codable {
             id = try values.decode(String.self, forKey: .id)
             name = try values.decode(String.self, forKey: .name)
             color = try values.decodeIfPresent(String.self, forKey: .color)
+            ranking = try values.decode(Int.self, forKey: .ranking)
         } catch(let error) {
             throw PlayerCodingError.decoding("Failed to decode Player: \(error)")
         }
@@ -60,6 +54,7 @@ public class Player: Codable {
     public init(id: String, name: String) {
         self.id = id
         self.name = name
+        self.ranking = 0
     }
 
     // MARK: - Public methods

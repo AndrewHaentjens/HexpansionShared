@@ -9,12 +9,12 @@ import Foundation
 
 /*
 {
- "type":"join",
- "player":
-    {
+ "type": "join",
+ "player": {
         "id":"621B5454-31F2-446B-9F36-FE22903D1CE7",
-        "name":"Andrew",
-        "color":null
+        "name":" Andrew",
+        "color": null
+        "ranking: 0
     }
  }
 */
@@ -59,15 +59,15 @@ public struct Message: Codable {
     public static func gameIsFull(board: Board) -> Message {
         return Message(type: .full, board: board)
     }
-    
+
     public static func stop() -> Message {
         return Message(type: .stop)
     }
-    
+
     public static func turn(tiles: [Tile], player: Player?) -> Message {
         return Message(type: .turn, tiles: tiles, player: player)
     }
-    
+
     public static func finish(board: Board, winningPlayer: Player?) -> Message {
         return Message(type: .finish, board: board, player: winningPlayer)
     }
