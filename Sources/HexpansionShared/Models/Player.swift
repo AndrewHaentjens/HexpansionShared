@@ -7,8 +7,6 @@
 
 import Foundation
 
-
-
 /* Player JSON Object
  
     "player": {
@@ -18,6 +16,7 @@ import Foundation
         "ranking": 0
     }
 */
+
 public class Player: Codable {
 
     // MARK: - CodingKeys

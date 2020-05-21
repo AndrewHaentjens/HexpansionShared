@@ -7,6 +7,12 @@
 
 import Foundation
 
+// MARK: - Connection
+
+enum ConnectionError: LocalizedError {
+    
+}
+
 // MARK: - Player
 
 enum PlayerCodingError: LocalizedError {
