@@ -50,7 +50,7 @@ public class Player: Codable {
             ranking = try values.decode(Int.self, forKey: .ranking)
             isReady = try values.decode(Bool.self, forKey: .isReady)
         } catch(let error) {
-            throw PlayerCodingError.decoding("Failed to decode Player: \(error)")
+            throw CodingError.decoding("Failed to decode Player: \(error)")
         }
     }
 
@@ -73,7 +73,7 @@ public class Player: Codable {
             try container.encode(ranking, forKey: .ranking)
             try container.encode(isReady, forKey: .isReady )
         } catch(let error) {
-            throw PlayerCodingError.encoding("Failed to encode Player: \(error)")
+            throw CodingError.encoding("Failed to encode Player: \(error)")
         }
     }
 }

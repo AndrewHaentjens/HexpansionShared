@@ -19,56 +19,173 @@ import Foundation
  }
 */
 
-public enum MessageType: String, Codable {
-    case joining = "joining" // request to join
-    case joined = "joined" // waiting for other players
-    case full = "full" // game is full
-    case turn = "turn" // set turn
-    case finish = "finish" // finish game
-    case stop = "stop" // stop game
+public protocol Message: Codable { }
+
+/// PLAYER requests to join
+public struct LobbyJoinRequest: Message {
+    let player: Player
 }
 
-public struct Message: Codable {
+/// PLAYER created on server and sent back (with assiged color)
+public struct JoinedLobby: Message {
+    let player: Player
+}
+
+/// Player is set to ready
+public struct Ready: Message {
+    let player: Player
+}
+
+/// game is full
+public struct GameFull: Message {
+    let error: PlayerError
+}
+
+/// ACTIVE PLAYER's turn, with the tapped TILE
+public struct Turn: Message {
+    let tile: Tile
+    let activePlayer: Player
+}
+
+/// Board gets updated and returns AFFECTED TILES and the new ACTIVE PLAYER
+public struct ResolveTurn: Message {
+    let affectedTiles: [Tile]
+    let activePlayer: Player
+}
+
+/// Game is finished, WINNING PLAYER is returned allong with final state of the board's AFFECTED TILES
+public struct Finish: Message {
+    let affectedTiles: [Tile]
+    let winner: Player
+}
+
+/// Game was stopped by PLAYER
+public struct StopGame: Message {
+    let error: PlayerError
+}
+
+public enum MessageType: String, Codable {
+    case requestToJoinLobby = "join"
+    case joinedLobby = "joined"
+    case ready = "ready"
+    case full = "full"
+    case turn = "turn"
+    case resolveTurn = "resolve"
+    case finish = "finish"
+    case stop = "stop"
+}
+
+public struct ServerMessage: Codable {
+
+    // MARK: - CodingKeys
+
+    enum CodingKeys: String, CodingKey  {
+        case type, message
+    }
 
     // MARK: - Properties
 
     public let type: MessageType
-    public let board: Board?
-    public let updatedTiles: [Tile]
-    public let player: Player?
+    public let message: Message
 
     // MARK: - Initializer
-    
-    private init(type: MessageType, board: Board? = nil, tiles: [Tile] = [], player: Player? = nil) {
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        type = try container.decode(MessageType.self, forKey: .type)
+
+        switch type {
+
+        case .requestToJoinLobby:
+            message = try container.decode(LobbyJoinRequest.self, forKey: .message)
+
+        case .joinedLobby:
+            message = try container.decode(JoinedLobby.self, forKey: .message)
+
+        case .ready:
+            message = try container.decode(Ready.self, forKey: .message)
+
+        case .full:
+            message = try container.decode(GameFull.self, forKey: .message)
+
+        case .turn:
+            message = try container.decode(Turn.self, forKey: .message)
+
+        case .resolveTurn:
+            message = try container.decode(ResolveTurn.self, forKey: .message)
+
+        case .finish:
+            message = try container.decode(Finish.self, forKey: .message)
+
+        case .stop:
+            message = try container.decode(StopGame.self, forKey: .message)
+        }
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+
+        do {
+            try container.encode(type, forKey: .type)
+
+            if let nMessage = message as? LobbyJoinRequest {
+                try container.encode(nMessage, forKey: .message)
+            } else if let nMessage = message as? JoinedLobby {
+                try container.encode(nMessage, forKey: .message)
+            } else if let nMessage = message as? Ready {
+                try container.encode(nMessage, forKey: .message)
+            } else if let nMessage = message as? GameFull {
+                try container.encode(nMessage, forKey: .message)
+            } else if let nMessage = message as? Turn {
+                try container.encode(nMessage, forKey: .message)
+            } else if let nMessage = message as? ResolveTurn {
+                try container.encode(nMessage, forKey: .message)
+            } else if let nMessage = message as? Finish {
+                try container.encode(nMessage, forKey: .message)
+            } else if let nMessage = message as? StopGame {
+                try container.encode(nMessage, forKey: .message)
+            }
+        } catch(let error) {
+            throw CodingError.encoding("Failed to encode Player: \(error)")
+        }
+    }
+
+    private init(type: MessageType, message: Message) {
         self.type = type
-        self.board = board
-        self.updatedTiles = tiles
-        self.player = player
+        self.message = message
     }
 
     // MARK: - Static methods
 
-    public static func joining(player: Player) -> Message {
-        return Message(type: .joining, player: player)
+    public static func joining(_ join: LobbyJoinRequest) -> ServerMessage {
+        ServerMessage(type: .requestToJoinLobby, message: join)
     }
 
-    public static func joined(player: Player) -> Message {
-        return Message(type: .joined, player: player)
+    public static func joined(_ joined: JoinedLobby) -> ServerMessage {
+        ServerMessage(type: .joinedLobby, message: joined)
     }
 
-    public static func gameIsFull(board: Board) -> Message {
-        return Message(type: .full, board: board)
+    public static func gameIsFull(_ full: GameFull) -> ServerMessage {
+        ServerMessage(type: .full, message: full)
     }
 
-    public static func stop() -> Message {
-        return Message(type: .stop)
+    public static func setReady(_ ready: Ready) -> ServerMessage {
+        ServerMessage(type: .ready, message: ready)
     }
 
-    public static func turn(tiles: [Tile], player: Player?) -> Message {
-        return Message(type: .turn, tiles: tiles, player: player)
+    public static func stop(_ stopGame: StopGame) -> ServerMessage {
+        ServerMessage(type: .stop, message: stopGame)
     }
 
-    public static func finish(board: Board, winningPlayer: Player?) -> Message {
-        return Message(type: .finish, board: board, player: winningPlayer)
+    public static func turn(_ turn: Turn) -> ServerMessage {
+        ServerMessage(type: .turn, message: turn)
+    }
+
+    public static func resolveTurn(_ resolvedTurn: ResolveTurn) -> ServerMessage {
+        ServerMessage(type: .resolveTurn, message: resolvedTurn)
+    }
+
+    public static func finish(_ finish: Finish) -> ServerMessage {
+        ServerMessage(type: .finish, message: finish)
     }
 }
