@@ -14,6 +14,7 @@ import Foundation
         "name": "Andrew",
         "color": null
         "ranking": 0
+        "isReady": true
     }
 */
 
@@ -26,6 +27,7 @@ public class Player: Codable {
         case name
         case color
         case ranking
+        case isReady
     }
 
     // MARK: - Properties
@@ -34,6 +36,7 @@ public class Player: Codable {
     public var name: String
     public var color: String?
     public var ranking: Int // Might be used later, but no users are saved atm.
+    public var isReady: Bool
 
     // MARK: - Initializers
 
@@ -45,6 +48,7 @@ public class Player: Codable {
             name = try values.decode(String.self, forKey: .name)
             color = try values.decodeIfPresent(String.self, forKey: .color)
             ranking = try values.decode(Int.self, forKey: .ranking)
+            isReady = try values.decode(Bool.self, forKey: .isReady)
         } catch(let error) {
             throw PlayerCodingError.decoding("Failed to decode Player: \(error)")
         }
@@ -54,6 +58,7 @@ public class Player: Codable {
         self.id = id
         self.name = name
         self.ranking = 0
+        self.isReady = false
     }
 
     // MARK: - Public methods
@@ -66,6 +71,7 @@ public class Player: Codable {
             try container.encode(name, forKey: .name)
             try container.encode(color, forKey: .color)
             try container.encode(ranking, forKey: .ranking)
+            try container.encode(isReady, forKey: .isReady )
         } catch(let error) {
             throw PlayerCodingError.encoding("Failed to encode Player: \(error)")
         }
