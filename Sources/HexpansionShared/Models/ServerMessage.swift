@@ -1,5 +1,5 @@
 //
-//  Message.swift
+//  ServerMessage.swift
 //  
 //
 //  Created by Andrew Haentjens on 26/04/2020.
@@ -24,16 +24,28 @@ public protocol Message: Codable { }
 /// PLAYER requests to join
 public struct LobbyJoinRequest: Message {
     let player: Player
+    
+    init(player: Player) {
+        self.player = player
+    }
 }
 
 /// PLAYER created on server and sent back (with assiged color)
 public struct JoinedLobby: Message {
     let player: Player
+
+    init(player: Player) {
+        self.player = player
+    }
 }
 
 /// Player is set to ready
 public struct Ready: Message {
     let player: Player
+
+    init(player: Player) {
+        self.player = player
+    }
 }
 
 /// game is full
@@ -45,23 +57,41 @@ public struct GameFull: Message {
 public struct Turn: Message {
     let tile: Tile
     let activePlayer: Player
+    
+    init(tile: Tile, activePlayer: Player) {
+        self.player = player
+    }
 }
 
 /// Board gets updated and returns AFFECTED TILES and the new ACTIVE PLAYER
 public struct ResolveTurn: Message {
     let affectedTiles: [Tile]
     let activePlayer: Player
+    
+    init(affectedTiles: [Tile], activePlayer: Player) {
+        self.affectedTiles = affectedTiles
+        self.activePlayer = player
+    }
 }
 
 /// Game is finished, WINNING PLAYER is returned allong with final state of the board's AFFECTED TILES
 public struct Finish: Message {
     let affectedTiles: [Tile]
     let winner: Player
+
+    init(affectedTiles: [Tile], winner: Player) {
+        self.affectedTiles = affectedTiles
+        self.winner = winner
+    }
 }
 
 /// Game was stopped by PLAYER
 public struct StopGame: Message {
     let error: PlayerError
+    
+    init(error: PlayerError) {
+        self.error = error
+    }
 }
 
 public enum MessageType: String, Codable {
