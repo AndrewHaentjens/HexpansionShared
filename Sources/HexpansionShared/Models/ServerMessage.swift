@@ -51,6 +51,10 @@ public struct Ready: Message {
 /// game is full
 public struct GameFull: Message {
     let error: PlayerError
+
+    public init(error: PlayerError) {
+        self.error = error
+    }
 }
 
 /// ACTIVE PLAYER's turn, with the tapped TILE
@@ -59,7 +63,8 @@ public struct Turn: Message {
     let activePlayer: Player
     
     public init(tile: Tile, activePlayer: Player) {
-        self.player = player
+        self.tile = tile
+        self.activePlayer = activePlayer
     }
 }
 
@@ -70,7 +75,7 @@ public struct ResolveTurn: Message {
     
     public init(affectedTiles: [Tile], activePlayer: Player) {
         self.affectedTiles = affectedTiles
-        self.activePlayer = player
+        self.activePlayer = activePlayer
     }
 }
 
