@@ -25,7 +25,7 @@ public protocol Message: Codable { }
 public struct LobbyJoinRequest: Message {
     let player: Player
     
-    init(player: Player) {
+    public init(player: Player) {
         self.player = player
     }
 }
@@ -34,7 +34,7 @@ public struct LobbyJoinRequest: Message {
 public struct JoinedLobby: Message {
     let player: Player
 
-    init(player: Player) {
+    public init(player: Player) {
         self.player = player
     }
 }
@@ -43,7 +43,7 @@ public struct JoinedLobby: Message {
 public struct Ready: Message {
     let player: Player
 
-    init(player: Player) {
+    public init(player: Player) {
         self.player = player
     }
 }
@@ -58,7 +58,7 @@ public struct Turn: Message {
     let tile: Tile
     let activePlayer: Player
     
-    init(tile: Tile, activePlayer: Player) {
+    public init(tile: Tile, activePlayer: Player) {
         self.player = player
     }
 }
@@ -68,7 +68,7 @@ public struct ResolveTurn: Message {
     let affectedTiles: [Tile]
     let activePlayer: Player
     
-    init(affectedTiles: [Tile], activePlayer: Player) {
+    public init(affectedTiles: [Tile], activePlayer: Player) {
         self.affectedTiles = affectedTiles
         self.activePlayer = player
     }
@@ -79,7 +79,7 @@ public struct Finish: Message {
     let affectedTiles: [Tile]
     let winner: Player
 
-    init(affectedTiles: [Tile], winner: Player) {
+    public init(affectedTiles: [Tile], winner: Player) {
         self.affectedTiles = affectedTiles
         self.winner = winner
     }
@@ -89,7 +89,7 @@ public struct Finish: Message {
 public struct StopGame: Message {
     let error: PlayerError
     
-    init(error: PlayerError) {
+    public init(error: PlayerError) {
         self.error = error
     }
 }
