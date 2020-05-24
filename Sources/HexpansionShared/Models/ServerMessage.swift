@@ -23,7 +23,7 @@ public protocol Message: Codable { }
 
 /// PLAYER requests to join
 public struct LobbyJoinRequest: Message {
-    let player: Player
+    public let player: Player
     
     public init(player: Player) {
         self.player = player
@@ -32,7 +32,7 @@ public struct LobbyJoinRequest: Message {
 
 /// PLAYER created on server and sent back (with assiged color)
 public struct JoinedLobby: Message {
-    let player: Player
+    public let player: Player
 
     public init(player: Player) {
         self.player = player
@@ -41,7 +41,7 @@ public struct JoinedLobby: Message {
 
 /// Player is set to ready
 public struct Ready: Message {
-    let player: Player
+    public let player: Player
 
     public init(player: Player) {
         self.player = player
@@ -50,7 +50,7 @@ public struct Ready: Message {
 
 /// game is full
 public struct GameFull: Message {
-    let error: PlayerError
+    public let error: PlayerError
 
     public init(error: PlayerError) {
         self.error = error
@@ -59,8 +59,8 @@ public struct GameFull: Message {
 
 /// ACTIVE PLAYER's turn, with the tapped TILE
 public struct Turn: Message {
-    let tile: Tile
-    let activePlayer: Player
+    public let tile: Tile
+    public let activePlayer: Player
     
     public init(tile: Tile, activePlayer: Player) {
         self.tile = tile
@@ -70,8 +70,8 @@ public struct Turn: Message {
 
 /// Board gets updated and returns AFFECTED TILES and the new ACTIVE PLAYER
 public struct ResolveTurn: Message {
-    let affectedTiles: [Tile]
-    let activePlayer: Player
+    public let affectedTiles: [Tile]
+    public let activePlayer: Player
     
     public init(affectedTiles: [Tile], activePlayer: Player) {
         self.affectedTiles = affectedTiles
@@ -81,8 +81,8 @@ public struct ResolveTurn: Message {
 
 /// Game is finished, WINNING PLAYER is returned allong with final state of the board's AFFECTED TILES
 public struct Finish: Message {
-    let affectedTiles: [Tile]
-    let winner: Player
+    public let affectedTiles: [Tile]
+    public let winner: Player
 
     public init(affectedTiles: [Tile], winner: Player) {
         self.affectedTiles = affectedTiles
@@ -92,7 +92,7 @@ public struct Finish: Message {
 
 /// Game was stopped by PLAYER
 public struct StopGame: Message {
-    let error: PlayerError
+    public let error: PlayerError
     
     public init(error: PlayerError) {
         self.error = error
